@@ -1,0 +1,14 @@
+---
+page:
+  name: Вопросы и Ответы
+  url: https://otvet.mail.ru/question/216156098
+parser-config:
+  question:
+    header: //h1[@class='q--qtext']/text()
+    author: //a[@class='q--user']/b/text()
+    body: //div[@class='q--qcomment']/text()
+    like: //span[@class='totalmarks']/text()
+    answer_count: //strong[@class='h-title--b']/text()
+  answer_best:
+    author: //a[@class='author']/b/text()
+    body: //div[@class='a--atext-value']/text()
