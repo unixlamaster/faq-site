@@ -2,7 +2,7 @@ import org.htmlcleaner.*;
 import java.io.*;
 import java.net.URL;
     
-class Parser {
+public class Parser {
   public static void main(String[] args) {
     System.out.println("!!!");
     final CleanerProperties props = new CleanerProperties();
