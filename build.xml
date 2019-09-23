@@ -11,6 +11,15 @@
             <include name="**/*.jar" />
         </fileset>
     </path>
+    <pathconvert property="mf.classpath" pathsep=" ">
+        <path refid="3rd-party-classpath"/>
+        <mapper>
+            <chainedmapper>
+                <flattenmapper/>
+                <globmapper from="*.jar" to="lib/*.jar"/>
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
     <target name="compile">
         <mkdir dir="${classes}"/>
         <javac destdir="${classes}" includeAntRuntime="false">
@@ -19,7 +28,7 @@
         </javac>
     </target>
     <target name="run" depends="compile">
-        <java classname="Parser">
+        <java classname="faq.Parser">
             <classpath>
               <pathelement location="${classes}" />
               <path refid="3rd-party-classpath" />
@@ -30,9 +39,12 @@
         <delete dir="${build}"/>
     </target>
     <target name="package" depends="compile">
-        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" filesetmanifest="skip">
+            <zipgroupfileset dir="lib" includes="*.jar" excludes=""/>
+            
             <manifest>
-                <attribute name="Main–Class" value="Parser"/>
+                <attribute name="Main-Class" value="faq.Parser"/>
+                <attribute name="Class-Path" value="${mf.classpath}"/>
             </manifest>
         </jar>
     </target>
