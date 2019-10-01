@@ -59,7 +59,7 @@
     <target name="resolve" description="--> retrieve dependencies with Ivy">
         <ivy:settings id="ivy.instance"/>
         <ivy:resolve/>
-        <ivy:retrieve conf="runtime" pattern="${lib}/*.jar"/>
+        <ivy:retrieve conf="runtime" pattern="${lib}/[artifact].[ext]"/>
         <ivy:retrieve conf="build" pattern="${build}/*.jar"/>
     </target>
 </project>

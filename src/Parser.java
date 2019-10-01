@@ -2,6 +2,8 @@ package faq;
 import org.htmlcleaner.*;
 import java.io.*;
 import java.net.URL;
+import faq.ReadConfig;
+import java.util.Map;
     
 public class Parser {
   public static void main(String[] args) throws Exception {
@@ -10,7 +12,11 @@ public class Parser {
     final HtmlCleaner htmlCleaner = new HtmlCleaner(props);
     final SimpleHtmlSerializer htmlSerializer = 
         new SimpleHtmlSerializer(props);
-     
+    Map<String, String> config = ReadConfig.map("config.yaml");
+    for (Map.Entry<String, String> pair: config.entrySet())
+            {
+                System.out.println(pair.getKey()+"=>"+pair.getValue());
+            }     
     // make 10 threads using the same cleaner and the same serializer 
 
     for (int i = 1; i <= 1; i++) {
@@ -21,7 +27,7 @@ public class Parser {
             public void run() {
                 try {
                     TagNode html = htmlCleaner.clean(new URL(url));
-                    Object[] header = html.evaluateXPath("//h1[@class='q--qtext']/text()");
+                    Object[] header = html.evaluateXPath(config.get("q_header"));
                     System.out.print("header\t: ");
                     if (header != null && header.length > 0) {                        
                         System.out.println(header[0].toString().trim());

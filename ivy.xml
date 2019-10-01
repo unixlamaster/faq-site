@@ -17,6 +17,19 @@
                     name="htmlcleaner"        
                     rev="2.23"               
                     conf="jar->default; runtime->default"/>
+        <dependency org="com.fasterxml.jackson.core" 
+                    name="jackson-databind"
+                    rev="2.9.6"               
+                    conf="jar->default; runtime->default"/>
+        <dependency org="com.fasterxml.jackson.dataformat" 
+                   name="jackson-dataformat-yaml"        
+                   rev="2.9.6"               
+                   conf="jar->default; runtime->default"/>
+        <dependency org="org.apache.commons"
+                     name="commons-lang3"
+                     rev="3.8.1"
+                     conf="jar->default; runtime->default"/>
+
     </dependencies>
     <conflicts>
         <manager name="strict"/>
