@@ -1,0 +1,37 @@
+<ivy-module version="2.4">
+    <info organisation="faq" module="Parser"/>
+    <configurations>
+        <conf name="src"/>
+        <conf name="jar"/>
+        <conf name="all" extends="src,jar"/>
+        <conf name="build" visibility="private"/>
+        <conf name="runtime"/>
+    </configurations>
+    <publications>
+        <artifact type="jar" ext="jar" conf="jar"/>
+        <artifact type="src" ext="zip" conf="src"/>
+        <artifact type="all" ext="zip" conf="all"/>
+    </publications>
+    <dependencies>
+        <dependency org="net.sourceforge.htmlcleaner" 
+                    name="htmlcleaner"        
+                    rev="2.23"               
+                    conf="jar->default; runtime->default"/>
+        <dependency org="com.fasterxml.jackson.core" 
+                    name="jackson-databind"
+                    rev="2.9.6"               
+                    conf="jar->default; runtime->default"/>
+        <dependency org="com.fasterxml.jackson.dataformat" 
+                   name="jackson-dataformat-yaml"        
+                   rev="2.9.6"               
+                   conf="jar->default; runtime->default"/>
+        <dependency org="org.apache.commons"
+                     name="commons-lang3"
+                     rev="3.8.1"
+                     conf="jar->default; runtime->default"/>
+
+    </dependencies>
+    <conflicts>
+        <manager name="strict"/>
+    </conflicts>
+</ivy-module>
