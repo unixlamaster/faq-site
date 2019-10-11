@@ -6,3 +6,6 @@ frequently asked questions site
 https://dzone.com/articles/read-yaml-in-java-with-jackson
 
 файл: [config.yaml](https://github.com/unixlamaster/faq-site/blob/master/config.yaml)
+
+Добавлена контейнерезация
+sudo docker-compose up --build
