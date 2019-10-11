@@ -1,0 +1,29 @@
+version: "2"
+services:
+  web:
+    container_name: web
+    restart: always
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    logging:
+      driver: none
+  parser:
+    container_name: parser
+    image: parser
+    build:
+      context: ./parser
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
