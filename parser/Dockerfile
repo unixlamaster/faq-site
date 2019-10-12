@@ -22,7 +22,8 @@ RUN update-alternatives --install "/usr/bin/ant" "ant" "/opt/ant/bin/ant" 1 && \
 
 COPY . /parser
 WORKDIR /parser
-RUN ant bootstrap && \
+RUN mkdir lib build build/classes && \
+    ant bootstrap && \
     ant resolve && \
     ant compile
 CMD ant run
