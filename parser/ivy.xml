@@ -29,7 +29,10 @@
                      name="commons-lang3"
                      rev="3.8.1"
                      conf="jar->default; runtime->default"/>
-
+        <dependency org="org.mongodb"
+                     name="mongodb-driver-sync"
+                     rev="3.11.0"
+                     conf="jar->default; runtime->default"/>
     </dependencies>
     <conflicts>
         <manager name="strict"/>

@@ -9,10 +9,10 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 public class ReadConfig {
-  private static Map<String, String> readYamlConfig(String yaml) {
+  private static Map<String, Object> readYamlConfig(String yaml) {
     try {
       ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
-      Map<String, String> obj = yamlReader.readValue(yaml, new TypeReference<Map<String,String>>(){});
+      Map<String, Object> obj = yamlReader.readValue(yaml, new TypeReference<Map<String,Object>>(){});
       return obj;
     } catch(Exception ioe)
       {
@@ -21,11 +21,11 @@ public class ReadConfig {
       }
   }
   
-  public static Map<String, String> map(String config_file_name){
+  public static Map<String, Object> map(String config_file_name){
     try
     {
         String content = Files.readString(Paths.get(config_file_name));
-        Map<String, String> config = readYamlConfig(content);
+        Map<String, Object> config = readYamlConfig(content);
         return config;
      } catch(Exception ioe)
       {
