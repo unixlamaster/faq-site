@@ -11,9 +11,9 @@ import com.mongodb.*;
 public class Parser {
     static String find_tag(TagNode html, String xpath) {
         try {
-            Object[] header = html.evaluateXPath(xpath);
-            if (header != null && header.length > 0) {                        
-                return header[0].toString().trim();
+            Object[] tags = html.evaluateXPath(xpath);
+            if (tags != null && tags.length > 0) {                        
+                return tags[0].toString().trim();
             } else {
                 return null;
             }
@@ -28,10 +28,10 @@ public class Parser {
           TagNode html = htmlCleaner.clean(new URL((String)config.get("page_url")));     
           Map<String, Object> fields = (Map<String, Object>)config.get("fields");
           for (Map.Entry<String, Object> pair: fields.entrySet()) {
-             System.out.println("key="+pair.getKey());
-             System.out.println("xpath="+pair.getValue());
+             System.out.print("key="+pair.getKey());
+             System.out.println(" xpath="+pair.getValue());
              String tag_value = find_tag(html, (String)pair.getValue());
-             System.out.println(pair.getKey()+"=>"+tag_value);
+             System.out.println("value="+tag_value);
           }
       } catch (Exception e) {
          e.printStackTrace();

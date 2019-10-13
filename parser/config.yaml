@@ -3,9 +3,9 @@ page_name: Вопросы и Ответы
 page_url: https://otvet.mail.ru/question/216156098
 fields:
     q_header: //h1[@class='q--qtext']/text()
-    q_author: //a[@class='q--user']/b/text()
-    q_body: //div[@class='q--qcomment']/text()
-    q_like: //span[@class='totalmarks']/text()
-    q_answer_count: //strong[@class='h-title--b']/text()
-    a_author: //a[@class='author']/b/text()
-    a_body: //div[@class='a--atext-value']/text()
+    q_author: //a[@class='q--user small author']/b/text()
+    q_body: //div[@class='q--qcomment medium']/text()
+    q_like: //meta[@itemprop='upvoteCount']/@content
+    q_answer_count: //meta[@itemprop='answerCount']/@content
+    a_author: //a[@class='author a--author']/b/text()
+    a_body: //div[@class='a--atext atext']/a/text()
