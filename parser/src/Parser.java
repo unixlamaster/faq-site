@@ -4,16 +4,18 @@ import java.io.*;
 import java.net.URL;
 import faq.ReadConfig;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Collection;
 import com.mongodb.*;
     
 public class Parser {
-    static String find_tag(TagNode html, String xpath) {
+    static String find_tag(TagNode html, String xpath, Integer index) {
         try {
             Object[] tags = html.evaluateXPath(xpath);
             if (tags != null && tags.length > 0) {                        
-                return tags[0].toString().trim();
+                return tags[index].toString().trim();
             } else {
                 return null;
             }
@@ -22,16 +24,46 @@ public class Parser {
             return null;
         }        
     }
+    static Integer pop_config_key(Map<String, Object> hash,List keys,String key,Integer def) {
+        Integer val = def;
+        if (hash.get(key)!=null) {
+            val = (Integer)hash.get(key);
+            keys.remove(keys.indexOf(key));
+        }
+        return val;
+    }
+    static void config_hash_parse(TagNode html, Map<String, Object> hash) {
+        List<String> keys = new ArrayList(hash.keySet());
+        Integer index = pop_config_key(hash,keys,"index",0);
+        Integer multi = pop_config_key(hash,keys,"multi",1);
+        for(Integer i=0;i<multi;i++) {
+            for(String key: keys) {
+               System.out.print("key="+key);
+               System.out.println(" xpath="+hash.get(key));
+               String tag_value = find_tag(html, (String)hash.get(key), index+i);
+               System.out.println("value="+tag_value);
+            }
+        }
+    }
    public static BasicDBObject page_parser(HtmlCleaner htmlCleaner, Map<String, Object> config) {
       BasicDBObject body = new BasicDBObject();
       try {
-          TagNode html = htmlCleaner.clean(new URL((String)config.get("page_url")));     
-          Map<String, Object> fields = (Map<String, Object>)config.get("fields");
-          for (Map.Entry<String, Object> pair: fields.entrySet()) {
-             System.out.print("key="+pair.getKey());
-             System.out.println(" xpath="+pair.getValue());
-             String tag_value = find_tag(html, (String)pair.getValue());
-             System.out.println("value="+tag_value);
+          TagNode html = htmlCleaner.clean(new URL((String)config.get("page_url")));
+          Object check_obj = (Object)config.get("fields");
+          if (check_obj.getClass().getName()=="java.util.ArrayList") {
+              ArrayList fields = (ArrayList)config.get("fields");
+              for (Object ohash: fields) {
+                  Map<String, Object> hash = (Map<String, Object>)ohash;
+                  config_hash_parse(html,hash);
+              }
+          } else {
+              if (check_obj.getClass().getName()=="java.util.LinkedHashMap") {
+                  Map<String, Object> fields = (Map<String, Object>)config.get("fields");
+                  config_hash_parse(html,fields);
+              } else {
+                  Error ref = new Error(); // создаем экземпляр
+                  throw ref;               // "бросаем" его
+              }
           }
       } catch (Exception e) {
          e.printStackTrace();
