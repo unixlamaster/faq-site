@@ -3,6 +3,9 @@ page_name: Вопросы и Ответы
 page_url: https://otvet.mail.ru/question/216156098
 fields:
     -
+        page_cat_name_rus: //a[@class='black list__title']/span/text()
+        page_cat_name_en: //a[@class='black list__title']/@href
+    -
         q_header: //h1[@class='q--qtext']/text()
         q_author: //a[@class='q--user small author']/b/text()
         q_body: //div[@class='q--qcomment medium']/text()
